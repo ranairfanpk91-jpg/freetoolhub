@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeToolHub - Free Online Tools</title>
+<meta name="description" content="FreeToolHub provides simple, fast and free online calculators and text tools.">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#fff;border-bottom:1px solid #e6e9ef;padding:16px 5%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:800}.logo span{font-weight:400}
+nav a{margin-left:18px;text-decoration:none;color:#344054;font-size:14px}
+.hero{padding:55px 5%;text-align:center;background:#eef4ff}.hero h1{font-size:38px;margin:0 0 12px}.hero p{color:#667085;margin-bottom:24px}
+.search{width:min(600px,90%);padding:15px 18px;border:1px solid #d0d5dd;border-radius:12px;font-size:16px}
+.container{max-width:1050px;margin:35px auto;padding:0 18px}.section-title{font-size:25px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:22px;box-shadow:0 3px 12px rgba(0,0,0,.04)}
+.card .icon{font-size:30px}.card h3{margin:10px 0 7px}.card p{color:#667085;font-size:14px;line-height:1.5}.btn{display:inline-block;margin-top:8px;padding:10px 14px;border-radius:9px;background:#1769e0;color:#fff;text-decoration:none;border:0;cursor:pointer}
+.tool{display:none;background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:22px;margin-top:28px}.tool input,.tool textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #d0d5dd;border-radius:9px;font-size:16px}
+.result{margin-top:12px;font-weight:700;font-size:18px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+footer{margin-top:55px;background:#172033;color:#fff;padding:30px 5%;text-align:center}footer a{color:#dbe7ff;margin:0 8px}
+@media(max-width:600px){.hero h1{font-size:30px}.two{grid-template-columns:1fr}nav a{margin-left:8px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">FreeTool<span>Hub</span></div>
+<nav><a href="#tools">Tools</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+</header>
+
+<section class="hero">
+<h1>Free Online Tools</h1>
+<p>Fast, simple and free tools for everyday tasks.</p>
+<input class="search" id="search" oninput="filterTools()" placeholder="Search for a tool...">
+</section>
+
+<main class="container" id="tools">
+<h2 class="section-title">Popular Tools</h2>
+<div class="grid" id="cards">
+<div class="card" data-name="age calculator"><div class="icon">🎂</div><h3>Age Calculator</h3><p>Calculate your age from your date of birth.</p><button class="btn" onclick="showTool('age')">Use Tool →</button></div>
+<div class="card" data-name="percentage calculator"><div class="icon">🧮</div><h3>Percentage Calculator</h3><p>Quickly calculate percentages and percentage values.</p><button class="btn" onclick="showTool('percent')">Use Tool →</button></div>
+<div class="card" data-name="word counter"><div class="icon">📝</div><h3>Word Counter</h3><p>Count words and characters in your text.</p><button class="btn" onclick="showTool('words')">Use Tool →</button></div>
+<div class="card" data-name="number to words"><div class="icon">🔢</div><h3>Number to Words</h3><p>Convert a number into English words.</p><button class="btn" onclick="showTool('number')">Use Tool →</button></div>
+</div>
+
+<div id="age" class="tool"><h2>🎂 Age Calculator</h2><input type="date" id="dob"><button class="btn" onclick="calcAge()">Calculate Age</button><div class="result" id="ageResult"></div></div>
+
+<div id="percent" class="tool"><h2>🧮 Percentage Calculator</h2><div class="two"><input type="number" id="pnum" placeholder="Value"><input type="number" id="ppercent" placeholder="Percentage"></div><button class="btn" onclick="calcPercent()">Calculate</button><div class="result" id="percentResult"></div></div>
+
+<div id="words" class="tool"><h2>📝 Word Counter</h2><textarea id="text" rows="7" oninput="countWords()" placeholder="Type or paste your text here..."></textarea><div class="result" id="wordResult">0 words • 0 characters</div></div>
+
+<div id="number" class="tool"><h2>🔢 Number to Words</h2><input type="number" id="numberInput" min="0" max="999999999" placeholder="Enter a number"><button class="btn" onclick="numberWords()">Convert</button><div class="result" id="numberResult"></div></div>
+
+<section id="about" style="margin-top:50px"><h2>About FreeToolHub</h2><p>FreeToolHub provides simple and easy-to-use online tools for everyday tasks. Our goal is to make useful tools accessible to everyone.</p></section>
+<section id="contact" style="margin-top:30px"><h2>Contact</h2><p>For questions or suggestions, please add your contact email here before publishing the site.</p></section>
+</main>
+
+<footer>
+<p>© 2026 FreeToolHub. All rights reserved.</p>
+<a href="#tools">Tools</a><a href="#about">About</a><a href="#contact">Contact</a>
+</footer>
+
+<script>
+function showTool(id){document.querySelectorAll('.tool').forEach(x=>x.style.display='none');let e=document.getElementById(id);e.style.display='block';e.scrollIntoView({behavior:'smooth',block:'start'})}
+function calcAge(){let d=new Date(document.getElementById('dob').value);if(!d||isNaN(d)){ageResult.textContent='Please select your date of birth.';return}let n=new Date();let y=n.getFullYear()-d.getFullYear(),m=n.getMonth()-d.getMonth(),day=n.getDate()-d.getDate();if(day<0){m--;day+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}ageResult.textContent=`You are ${y} years, ${m} months and ${day} days old.`}
+function calcPercent(){let a=parseFloat(pnum.value),b=parseFloat(ppercent.value);percentResult.textContent=(isNaN(a)||isNaN(b))?'Enter both values.':`${b}% of ${a} = ${(a*b/100).toFixed(2)}`}
+function countWords(){let t=text.value.trim();let w=t?t.split(/\s+/).length:0;wordResult.textContent=`${w} words • ${t.length} characters`}
+function filterTools(){let q=search.value.toLowerCase();document.querySelectorAll('#cards .card').forEach(c=>c.style.display=c.dataset.name.includes(q)?'block':'none')}
+const ones=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+function under1000(n){let s='';if(n>=100){s+=ones[Math.floor(n/100)]+' hundred';n%=100;if(n)s+=' and '}if(n<20)s+=ones[n];else{s+=tens[Math.floor(n/10)];if(n%10)s+='-'+ones[n%10]}return s}
+function numberWords(){let n=parseInt(numberInput.value);if(isNaN(n)||n<0||n>999999999){numberResult.textContent='Enter a number from 0 to 999,999,999.';return}if(n===0){numberResult.textContent='Zero';return}let s='';let m=Math.floor(n/1000000);n%=1000000;let k=Math.floor(n/1000);n%=1000;if(m)s+=under1000(m)+' million';if(k)s+=(s?' ':'')+under1000(k)+' thousand';if(n)s+=(s?' ':'')+under1000(n);numberResult.textContent=s}
+</script>
+</body>
+</html>
